@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Network Anomaly Detection</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-light">
+  <div class="py-5">
+    <div class="row justify-content-center">
+      <!-- Form -->
+      <div class="col-md-7">
+        <div class="card shadow-sm p-4">
+          <h2 class="text-center mb-4">Network Anomaly Detection</h2>
+          <form id="dataForm" class="d-flex">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+              <label for="source_ip" class="form-label">Source IP</label>
+              <input type="text" id="source_ip" name="source_ip" class="form-control" required placeholder="e.g. 192.168.1.1">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="destination_ip" class="form-label">Destination IP</label>
+              <input type="text" id="destination_ip" name="destination_ip" class="form-control" required placeholder="e.g. 10.0.0.1">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="protocol" class="form-label">Protocol</label>
+              <select id="protocol" name="protocol" class="form-select" required>
+                <option value="TCP">TCP</option>
+                <option value="UDP">UDP</option>
+                <option value="ICMP">ICMP</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="packet_size" class="form-label">Packet Size</label>
+              <input type="number" id="packet_size" name="packet_size" class="form-control" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="bytes_sent" class="form-label">Bytes Sent</label>
+              <input type="number" id="bytes_sent" name="bytes_sent" class="form-control" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="bytes_received" class="form-label">Bytes Received</label>
+              <input type="number" id="bytes_received" name="bytes_received" class="form-control" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="flag" class="form-label">Flag</label>
+              <select id="flag" name="flag" class="form-select" required>
+                <option value="SYN">SYN</option>
+                <option value="ACK">ACK</option>
+                <option value="RST">RST</option>
+                <option value="FIN">FIN</option>
+              </select>
+            </div>
+            <div class="d-flex">
+              <button type="submit" class="btn btn-primary mx-1">
+                <span id="btnText">Check for Anomaly</span>
+                <span id="spinner" class="spinner-border spinner-border-sm ms-2" role="status"></span>
+              </button>
+              <button type="reset" class="btn btn-secondary mx-1">Reset</button>
+            </div>
+            </div>
+          </form>
+
+          <!-- ✅ Custom Alert Dialog -->
+        <div id="customAlert" class="custom-alert-overlay" style="display: none;">
+          <div class="custom-alert-box">
+            <h5 class="text-success mb-2">Prediction Result</h5>
+            <div id="alertOutput" class="fw-bold mb-2"></div>
+            <pre id="alertData" class="text-muted small text-start"></pre>
+            <button id="closeAlertBtn" class="btn btn-sm btn-primary mt-3">OK</button>
+          </div>
+        </div>
+
+        </div>
+      </div>
+      <!-- Retrain -->
+      <div class="col-md-5 d-none">
+        <div class="card mt-4 p-3 shadow-sm">
+          <h5>Retrain Model</h5>
+          <form id="retrainForm">
+            <input type="file" id="csvFile" accept=".csv" class="form-control mb-2" required />
+            <button type="submit" class="btn btn-primary">Retrain Model</button>
+          </form>
+          <div id="retrainStatus" class="mt-2 small text-success"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Slide-in Output Box -->
+  <!-- Right below your form -->
+<!-- <div id="output" class="mt-4 text-center fw-bold"></div>
+<div id="submittedData" class="mt-3 text-start text-muted small"></div> -->
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
